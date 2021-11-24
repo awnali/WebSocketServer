@@ -1,4 +1,4 @@
-package com.ws.server;
+package com.ws.server.model;
 
 public class Message {
 

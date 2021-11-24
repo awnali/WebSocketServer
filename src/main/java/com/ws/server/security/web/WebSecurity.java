@@ -1,4 +1,4 @@
-package com.ws.server.security;
+package com.ws.server.security.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

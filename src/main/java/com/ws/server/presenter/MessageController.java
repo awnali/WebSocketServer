@@ -1,5 +1,6 @@
-package com.ws.server;
+package com.ws.server.presenter;
 
+import com.ws.server.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,6 @@ public class MessageController {
         logger.info("Received the message from client: {}, {}", msg.getFrom(), principal.getName());
         return msg;
     }
+
 
 }

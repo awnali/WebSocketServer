@@ -1,6 +1,7 @@
 package com.ws.server.security.socket;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
 
@@ -9,6 +10,7 @@ class WebSocketAuthorizationSecurityConfig extends AbstractSecurityWebSocketMess
     @Override
     protected void configureInbound(final MessageSecurityMetadataSourceRegistry messages) {
         // You can customize your authorization mapping here.
+        // you need this otherwise @PreAuthorize("isAuthenticated()") not gonna work
         messages.anyMessage().authenticated();
     }
 
