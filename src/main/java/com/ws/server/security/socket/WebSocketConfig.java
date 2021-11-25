@@ -29,12 +29,15 @@ class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/portfolio").setAllowedOrigins("https://mydomain.com");
+
     }
+
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app"); // (2)
         config.enableSimpleBroker("/topic", "/queue"); // (3)
+        config.setPreservePublishOrder(true);
     }
 
     @Override

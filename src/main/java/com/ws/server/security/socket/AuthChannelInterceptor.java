@@ -38,7 +38,7 @@ public class AuthChannelInterceptor implements ChannelInterceptor {
                 GrantedAuthority userRoleAuthority = new SimpleGrantedAuthority("USER");
                 List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
                 grantedAuthorities.add(userRoleAuthority);
-                UserDetails userDetails = new User("awn", "", grantedAuthorities);
+                UserDetails userDetails = new User(user.getSubject(), "", grantedAuthorities);
 
                 accessor.setUser(new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>()));
 //

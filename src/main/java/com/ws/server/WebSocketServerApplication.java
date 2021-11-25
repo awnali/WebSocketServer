@@ -19,13 +19,13 @@ class WebSocketServerApplication {
 
 		Date exp = new Date(System.currentTimeMillis() + 232232323);
 
-//        Claims claims = Jwts.claims().setSubject("48");
-//        String token = Jwts.builder().setClaims(claims)
-//                           .signWith(SignatureAlgorithm.HS512, "secret")
-//                           .setExpiration(exp)
-//                           .compact();
-//
-//        System.out.println(token);
+        Claims claims = Jwts.claims().setSubject("2");
+        String token = Jwts.builder().setClaims(claims)
+                           .signWith(SignatureAlgorithm.HS512, "secret")
+                           .setExpiration(exp)
+                           .compact();
+
+        System.out.println(token);
     }
 
 
