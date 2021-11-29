@@ -5,10 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,5 +47,25 @@ public class MessageController {
     public void chat(Message msg, @DestinationVariable String sendToUserId, Principal principal) {
         logger.info("Received the message from client: {}, for {}", msg.getFrom(), sendToUserId);
         simpMessagingTemplate.convertAndSendToUser(sendToUserId, "/queue/messages", msg);
+    }
+
+
+    @SubscribeMapping("/subscribe-to-chat")
+    public Message SubscribeToChat() {
+        logger.info("Received the message from client");
+        return getSampleMessage();
+    }
+
+    @MessageExceptionHandler
+    public String handleException(Exception exception) {
+        return "Error";
+    }
+
+
+    private Message getSampleMessage() {
+        Message msg = new Message();
+        msg.setFrom("Nicky");
+        msg.setText("Howdy!!");
+        return msg;
     }
 }
