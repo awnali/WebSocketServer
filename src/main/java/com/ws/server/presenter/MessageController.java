@@ -29,7 +29,7 @@ public class MessageController {
     @SendTo("/topic/messages")
     @PreAuthorize("isAuthenticated()")
     public Message handle(Message msg, @Autowired Principal principal) {
-        logger.info("Received the message from client: {}, {}", msg.getFrom(), principal.getName());
+        logger.info("Thread: {} - Received the message from client: {}, {}", Thread.currentThread().getName(), msg.getFrom(), principal.getName());
         return msg;
     }
 
@@ -37,7 +37,7 @@ public class MessageController {
     @SendToUser("/queue/messages")
     @PreAuthorize("isAuthenticated()")
     public Message reply(Message msg, Principal principal) {
-        logger.info("Received the message from client: {}, {}", msg.getFrom(), principal.getName());
+        logger.info("Thread: {} - Received the message from client: {}, {}", Thread.currentThread().getName(), msg.getFrom(), principal.getName());
         return msg;
     }
 
@@ -45,14 +45,14 @@ public class MessageController {
     @MessageMapping("/chat-with-user/{sendToUserId}")
     @PreAuthorize("isAuthenticated()")
     public void chat(Message msg, @DestinationVariable String sendToUserId, Principal principal) {
-        logger.info("Received the message from client: {}, for {}", msg.getFrom(), sendToUserId);
+        logger.info("Thread: {} - Received the message from client: {}, for {}", Thread.currentThread().getName(), msg.getFrom(), sendToUserId);
         simpMessagingTemplate.convertAndSendToUser(sendToUserId, "/queue/messages", msg);
     }
 
 
     @SubscribeMapping("/subscribe-to-chat")
     public Message SubscribeToChat() {
-        logger.info("Received the message from client");
+        logger.info("Thread: {} - Received the message from client", Thread.currentThread().getName());
         return getSampleMessage();
     }
 
